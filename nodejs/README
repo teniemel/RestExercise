@@ -15,6 +15,17 @@ Note: By default server will listen port 8080. If can be changed manually from s
 
 
 TEST WITH CURL:
+
+Eligible account number is 1111
 curl --data "accountNumber=1111&channelPackage=MOVIES&channelPackage=SPORTS" http://localhost:8080/getPrizes
 curl --data "accountNumber=1111&channelPackage=KIDS" http://localhost:8080/getPrizes
 curl --data "accountNumber=1111&channelPackage=MOVIES&channelPackage=GOSSIP" http://localhost:8080/getPrizes
+
+Non eligible account number is 3333
+curl --data "accountNumber=3333&channelPackage=MOVIES&channelPackage=GOSSIP&channelPackage=KIDS&channelPackage=SPORTS" http://localhost:8080/getPrizes
+
+Technical failure will happen with account number 2222
+curl --data "accountNumber=2222&channelPackage=MOVIES&channelPackage=GOSSIP" http://localhost:8080/getPrizes
+
+Invalid account number error will happen with any other account number
+curl --data "accountNumber=1234&channelPackage=GOSSIP" http://localhost:8080/getPrizes

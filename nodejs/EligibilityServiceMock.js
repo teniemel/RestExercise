@@ -21,9 +21,9 @@ module.exports.isCustomerEligible = function(accountNumber)
     case "2222":
         throw technicalFailureError;
     case "3333":
-        throw invalidAccountNumberError;
-    default:
         return false;
+    default:
+        throw invalidAccountNumberError;
     }
 }
 
