@@ -1,0 +1,20 @@
+SETUP:
+You should have nodejs installed with following extra packages:
+express
+body-parser
+
+You can install extra packages with npm locally (run in this directory)
+npm install express --save
+npm install body-parser --save
+
+For testing install curl or some other tool that can create http post requests
+
+RUN:
+nodejs server.js
+Note: By default server will listen port 8080. If can be changed manually from server.js file
+
+
+TEST WITH CURL:
+curl --data "accountNumber=1111&channelPackage=MOVIES&channelPackage=SPORTS" http://localhost:8080/getPrizes
+curl --data "accountNumber=1111&channelPackage=KIDS" http://localhost:8080/getPrizes
+curl --data "accountNumber=1111&channelPackage=MOVIES&channelPackage=GOSSIP" http://localhost:8080/getPrizes
