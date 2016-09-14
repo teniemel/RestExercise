@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class PrizeService
 {
-    private String accountNumber;
-    private List<String> channelPackages;
     // Use mock for testing purpopses until we get real implementation
     private final EligibilityServiceMock eligibilityService = new EligibilityServiceMock();
     
@@ -17,57 +15,17 @@ public class PrizeService
     
     private static final String sportingEventPrize = "FreeSportingEventTicket";
     private static final String movieTicketPrize = "FreeMovieTicket";
-    
-    // Set account information
-    public void setAccountInformation(String accountNumber, List<String> channelPackages)
-    {
-        this.accountNumber = accountNumber;
-        this.channelPackages = channelPackages;
-    }
 
-    // Returns list of channel packages
-    public List<String> getChannelPackages() 
+    public List<String> getPrizeList(
+            String accountNumber,
+            List<String> channelPackages) throws InvalidAccountNumberException
     {
-        return channelPackages;
-    }
-    
-    // Returns list of prizes
-    public List<String> getPrizes() throws InvalidAccountNumberException
-    {
-        List<String> prizeList = getPrizeList();
-        reset();
-        return prizeList;
-    }
-    
-    private String getPrize(String channelPackage)
-    {
-        if(channelPackage.equals(this.sportsPackage))
-        {
-            return sportingEventPrize;
-        }
-        else if(channelPackage.equals(this.moviesPackage) ||
-                channelPackage.equals(this.gossipPackage))
-        {
-            return movieTicketPrize;
-        }
-        
-        return "";
-    }
-    
-    private List<String> getPrizeList() throws InvalidAccountNumberException
-    {
-        if(this.accountNumber.isEmpty())
-        {
-            // Throw exception
-            //throw new InvalidAccountNumberException();
-        }
-    
         List<String> prizeList = new ArrayList<String>();
         try
         {
-            if(eligibilityService.isAccountEligible(this.accountNumber))
+            if(eligibilityService.isAccountEligible(accountNumber))
             {
-               for(String p : this.channelPackages)
+               for(String p : channelPackages)
                {
                     String prize = getPrize(p);
                     // Add only is not already existing and not empty
@@ -92,9 +50,18 @@ public class PrizeService
         return prizeList;
     }
     
-    private void reset()
+    private String getPrize(String channelPackage)
     {
-        this.accountNumber = new String();
-        this.channelPackages.clear();
+        if(channelPackage.equals(this.sportsPackage))
+        {
+            return sportingEventPrize;
+        }
+        else if(channelPackage.equals(this.moviesPackage) ||
+                channelPackage.equals(this.gossipPackage))
+        {
+            return movieTicketPrize;
+        }
+
+        return "";
     }
 }

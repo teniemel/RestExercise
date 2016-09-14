@@ -16,7 +16,7 @@ public class PrizeServiceController
     private final PrizeService prizeService = new PrizeService();
 
     @RequestMapping(method=RequestMethod.GET)
-    public @ResponseBody PrizeService getPrizes(
+    public @ResponseBody Response getPrizes(
         @RequestParam MultiValueMap<String, String> params) throws InvalidAccountNumberException
     {
         String accountNumber = params.getFirst("accountNumber");
@@ -26,12 +26,10 @@ public class PrizeServiceController
                            + accountNumber + 
                            " channelPackages: " + channelPackages);
 
-        if(true)
-        {                           
-            throw new InvalidAccountNumberException();                           
-        }
-                           
-        prizeService.setAccountInformation(accountNumber, channelPackages);                                              
-        return prizeService;
+        Response response = new Response(channelPackages);
+
+        List<String> prizes = prizeService.getPrizeList(accountNumber, channelPackages);
+        response.setPrizes(prizes);
+        return response;
     }
 }

@@ -11,6 +11,7 @@ public class EligibilityServiceMock
         if(accountNumber.equals("1111"))
         {
             // Eligible user
+            System.out.println("Eligible user");
             return true;
         }
         else if(accountNumber.equals("2222"))
@@ -21,6 +22,7 @@ public class EligibilityServiceMock
         else if(accountNumber.equals("3333"))
         {
             // Non eligible user
+            System.out.println("Non eligible user");
             return false;
         }
         else

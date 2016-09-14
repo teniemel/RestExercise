@@ -1,10 +1,24 @@
 SETUP:
-- Make sure you have jre 1.7 installed
+Make sure you have jre 1.8 installed and set in JAVA_PATH
 
 BUILD:
-- 
+./gradlew clean build
 
 RUN:
+java -jar build/libs/gs-actuator-service-0.1.0.jar
+
+TEST:
+Account number 1111 is eligible
+curl -v "localhost:8080/get_prizes?accountNumber=1111&channelPackage=SPORTS&channelPackage=GOSSIP" | json_pp
+
+Account number 2222 causes technical failure in EligibilityService and empty list is returned
+curl -v "localhost:8080/get_prizes?accountNumber=2222&channelPackage=SPORTS&channelPackage=GOSSIP" | json_pp
+
+Account number 3333 in non eligible user and empty prize list is received
+curl -v "localhost:8080/get_prizes?accountNumber=3333&channelPackage=SPORTS&channelPackage=GOSSIP" | json_pp
+
+Any other account number will cause InvalidAccountNumber exception in 404 - Bad Request
+curl -v "localhost:8080/get_prizes?accountNumber=1234&channelPackage=SPORTS&channelPackage=GOSSIP" | json_pp
 
 
 
