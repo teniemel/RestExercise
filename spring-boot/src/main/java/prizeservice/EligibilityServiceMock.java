@@ -1,13 +1,20 @@
 package prizeservice;
 
-// This Mock is used for testing purposes
-
+/**
+ * EligibilityServiceMock is used for testing purposes until
+ * real service is available
+ */
 public class EligibilityServiceMock
 {
+    /**
+     * Checks wether account is eligible for prize
+     * @param accountNumber Account number to check
+     * @return True if eligible else False
+     */
     public boolean isAccountEligible(String accountNumber) throws InvalidAccountNumberException, TechnicalFailureException
     {
         // TODO: Replace this part with real actual communication with EligibilityService when it's available
-    
+
         if(accountNumber.equals("1111"))
         {
             // Eligible user

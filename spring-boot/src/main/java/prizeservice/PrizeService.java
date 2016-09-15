@@ -3,19 +3,29 @@ package prizeservice;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * PrizeService provides API for quering possible prizes for certain user.
+ * User is identified with account number.
+*/
 public class PrizeService
 {
     // Use mock for testing purpopses until we get real implementation
     private final EligibilityServiceMock eligibilityService = new EligibilityServiceMock();
-    
+
     private static final String sportsPackage = "SPORTS";
     private static final String moviesPackage = "MOVIES";
     private static final String gossipPackage = "GOSSIP";
     private static final String kidsPackage = "KIDS";
-    
+
     private static final String sportingEventPrize = "FreeSportingEventTicket";
     private static final String movieTicketPrize = "FreeMovieTicket";
 
+    /**
+     * Gets prize list based on account number
+     * @param accountNumber Users account number
+     * @param channelPackages List of user channel packages
+     * @return List of prizes
+    */
     public List<String> getPrizeList(
             String accountNumber,
             List<String> channelPackages) throws InvalidAccountNumberException
@@ -32,7 +42,7 @@ public class PrizeService
                     if(!prize.isEmpty() && !prizeList.contains(prize))
                     {
                         prizeList.add(prize);
-                    }             
+                    }
                }
             }
         }
@@ -46,10 +56,10 @@ public class PrizeService
         {
             System.out.println("Exception: " + exc);
         }
-        
+
         return prizeList;
     }
-    
+
     private String getPrize(String channelPackage)
     {
         if(channelPackage.equals(this.sportsPackage))

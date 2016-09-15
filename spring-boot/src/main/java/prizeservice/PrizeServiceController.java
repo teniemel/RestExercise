@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/get_prizes")
-public class PrizeServiceController 
+public class PrizeServiceController
 {
     private final PrizeService prizeService = new PrizeService();
 
@@ -21,9 +21,9 @@ public class PrizeServiceController
     {
         String accountNumber = params.getFirst("accountNumber");
         List<String> channelPackages = params.get("channelPackage");
-    
-        System.out.println("getPrizes: accountNumber: " 
-                           + accountNumber + 
+
+        System.out.println("getPrizes: accountNumber: "
+                           + accountNumber +
                            " channelPackages: " + channelPackages);
 
         Response response = new Response(channelPackages);
